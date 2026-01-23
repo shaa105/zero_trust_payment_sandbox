@@ -27,14 +27,22 @@ options.add_argument("--disable-extensions")     # sandbox hardening
 
 driver = webdriver.Chrome(options=options)
 
-payment_pages = [
-    "http://localhost:3000/#/basket",         # Juice Shop
-    "https://www.emirates.com/payment"        # Emirates (read-only, safe)
-]
+user_input = input("Enter payment page URLs separated by commas: ")
+payment_pages = [url.strip() for url in user_input.split(",") if url.strip()]
+
+#payment_pages = [
+  #  "http://localhost:3000/#/basket",         # Juice Shop
+   # "https://www.emirates.com/payment"        # Emirates (read-only, safe)
+#]
 
 # Removed this line because payment_page_url was undefined
 # driver.get(payment_page_url)
 # time.sleep(2)
+
+if not payment_pages:
+    print("[Sandbox] No URLs provided. Exiting.")
+    driver.quit()
+    exit()
 
 print("[Sandbox] Headless browser initialized")
 
@@ -56,7 +64,7 @@ for url in payment_pages:
     if "localhost" in url:
         main_domain = "localhost"
     else:
-        main_domain = "emirates.com"
+        main_domain = url.split("/")[2]  # extract domain dynamically
 
     print(f"[Sandbox] Cookie security analysis for {url}:")
     findings = analyze_cookies(cookies, main_domain)
@@ -75,18 +83,16 @@ for url in payment_pages:
     print(f"[Zero Trust] Decision: {decision}")
 
     if decision == "DENY":
-        print("[User Alert] ❌ High risk detected. Credential entry blocked (simulated).")
+        print("[User Alert]  High risk detected. Credential entry blocked (simulated).")
     elif decision == "WARN":
-        print("[User Alert] ⚠️ Medium risk detected. Proceed at your own risk.")
+        print("[User Alert]  Medium risk detected. Proceed at your own risk.")
     else:
-        print("[User Alert] ✅ Low risk. Page allowed.")
+        print("[User Alert]  Low risk. Page allowed.")
 
     print(f"[Sandbox] Page loaded safely. Zero Trust decision enforced.\n")
 
 driver.quit()
 print("[Sandbox] All pages processed. Sandbox session terminated safely.")
 
-
 if __name__ == "__main__":
-    # The script runs exactly as above when executed directly.
     pass
