@@ -26,9 +26,28 @@ def calculate_risk(findings):
         risk_level = model.predict(X)[0]
     else:
         risk_level = "MEDIUM"
+    
+    ## Numeric risk score (decimal) - fine-grained calculation
+    risk_score = 0.0
 
-    risk_score_map = {"LOW": 2, "MEDIUM": 5, "HIGH": 8}
-    risk_score = risk_score_map.get(risk_level, 5)
+    for f in findings:
+        issues = f.get("issues", [])
+        for issue in issues:
+            if issue == "Missing Secure flag":
+                risk_score += 0.5
+            elif issue == "Missing HttpOnly flag":
+                risk_score += 0.3
+            elif issue == "Third-party cookie":
+                risk_score += 0.7
+            elif issue == "Insecure session cookie":
+                risk_score += 1.0
+            elif issue == "Honeypot tampering detected":
+                risk_score += 2.0
+
+
+
+   # risk_score_map = {"LOW": 2, "MEDIUM": 5, "HIGH": 8}
+   # risk_score = risk_score_map.get(risk_level, 5)
 
     return risk_score, risk_level
 
