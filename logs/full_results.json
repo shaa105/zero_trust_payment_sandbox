@@ -1,0 +1,24 @@
+[
+    {
+        "timestamp": "2026-01-23T17:28:50.147543",
+        "url": "https://httpbin.org/cookies/set/session/test/123",
+        "risk_score": 0.020082391327718163,
+        "risk_level": "MEDIUM",
+        "decision": "WARN",
+        "cookie_issues": 0,
+        "honeypot_tampered": false,
+        "num_scripts": 0,
+        "num_third_party_scripts": 0
+    },
+    {
+        "timestamp": "2026-01-23T17:28:58.889851",
+        "url": "https://www.emirates.com/payment",
+        "risk_score": 1.984395084644146,
+        "risk_level": "LOW",
+        "decision": "ALLOW",
+        "cookie_issues": 0,
+        "honeypot_tampered": true,
+        "num_scripts": 2,
+        "num_third_party_scripts": 0
+    }
+]

@@ -1,0 +1,5 @@
+timestamp,url,risk_score,risk_level,decision,cookie_issues,honeypot_tampered,num_scripts,num_third_party_scripts
+2026-01-23T17:25:59.512473,https://httpbin.org/cookies/set/session/test/123,0.020082391327718163,MEDIUM,WARN,0,False,0,0
+2026-01-23T17:27:32.335904,https://httpbin.org/cookies/set/session/test/123,0.020082391327718163,MEDIUM,WARN,0,False,0,0
+2026-01-23T17:28:50.147543,https://httpbin.org/cookies/set/session/test/123,0.020082391327718163,MEDIUM,WARN,0,False,0,0
+2026-01-23T17:28:58.889851,https://www.emirates.com/payment,1.984395084644146,LOW,ALLOW,0,True,2,0
