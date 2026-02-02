@@ -27,13 +27,13 @@ options.add_argument("--disable-extensions")     # sandbox hardening
 
 driver = webdriver.Chrome(options=options)
 
-#user_input = input("Enter payment page URLs separated by commas: ")
-#payment_pages = [url.strip() for url in user_input.split(",") if url.strip()]
+user_input = input("Enter payment page URLs separated by commas: ")
+payment_pages = [url.strip() for url in user_input.split(",") if url.strip()]
 
-payment_pages = [
-    "http://localhost:3000/#/basket",         # Juice Shop
-    "https://www.emirates.com/payment"        # Emirates (read-only, safe)
-]
+#payment_pages = [
+#    "http://localhost:3000/#/basket",         # Juice Shop
+#    "https://www.emirates.com/payment"        # Emirates (read-only, safe)
+#]
 
 # Removed this line because payment_page_url was undefined
 # driver.get(payment_page_url)
