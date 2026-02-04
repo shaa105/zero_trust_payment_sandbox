@@ -17,37 +17,33 @@ def calculate_risk(findings):
     findings: list of dicts from cookie_analyzer
     returns: (risk_score, risk_level)
     """
-    # feature extraction
-    features = extract_features(findings)
-    X = pd.DataFrame([features])
-
-    if os.path.exists(MODEL_PATH):
-        model = joblib.load(MODEL_PATH)
-        risk_level = model.predict(X)[0]
-    else:
-        risk_level = "MEDIUM"
-    
-    ## Numeric risk score (decimal) - fine-grained calculation
-    risk_score = 0.0
+    # Numeric risk score (1-10 integer scale)
+    risk_score = 1  # Base score
 
     for f in findings:
         issues = f.get("issues", [])
         for issue in issues:
             if issue == "Missing Secure flag":
-                risk_score += 0.5
+                risk_score += 2
             elif issue == "Missing HttpOnly flag":
-                risk_score += 0.3
+                risk_score += 1
             elif issue == "Third-party cookie":
-                risk_score += 0.7
+                risk_score += 2
             elif issue == "Insecure session cookie":
-                risk_score += 1.0
+                risk_score += 3
             elif issue == "Honeypot tampering detected":
-                risk_score += 2.0
+                risk_score += 4
 
+    # Cap at 10
+    risk_score = min(10, risk_score)
 
-
-   # risk_score_map = {"LOW": 2, "MEDIUM": 5, "HIGH": 8}
-   # risk_score = risk_score_map.get(risk_level, 5)
+    # Determine risk level based on score
+    if risk_score <= 4:
+        risk_level = "LOW"
+    elif risk_score <= 7:
+        risk_level = "MEDIUM"
+    else:
+        risk_level = "HIGH"
 
     return risk_score, risk_level
 
@@ -90,4 +86,4 @@ def extract_features(findings):
     #else:
      #   level = "LOW"
 
-#    return risk_score, level
+#    return risk_score, levels
