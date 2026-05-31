@@ -109,5 +109,9 @@ This project includes integration with OWASP Juice Shop for security testing:
 - **ML Model**: scikit-learn based classifier (RandomForest)
 - **Python Version**: 3.8+
 
+## Using Streamlit for Frontend
+<img width="1098" height="418" alt="image" src="https://github.com/user-attachments/assets/0bc202fa-e362-49dd-bcdc-742845e3ff02" />
+
+
 ## License
 MIT 
